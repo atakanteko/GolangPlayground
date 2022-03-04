@@ -9,4 +9,16 @@ func main() {
 	myNumber = 22
 	fmt.Println(myFirstMessage)
 	fmt.Printf("My age is %d\n", myNumber)
+	fmt.Println(saySomethingWithParameter("Learn Go"))
+
+	whatWasSaid := saySomething()
+	fmt.Println(whatWasSaid)
 }
+func saySomething() string {
+	return "something"
+}
+
+func saySomethingWithParameter(message string) string {
+	return message
+}
+
