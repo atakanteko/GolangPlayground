@@ -1,19 +1,59 @@
 package main
 
-import "fmt"
+import (
+	"encoding/json"
+	"fmt"
+	"log"
+)
 
-func main() {
-	n := 3
-
-	out := make(chan int)
-	// We want to run a goroutine to multiply n by 2
-	go multiplyByTwo(n, out)
-	defer close(out)
-	result := <-out
-	fmt.Println("Result:", result)
+type Person struct {
+	FirstName string `json:"first_name"`
+	LastName  string `json:"last_name"`
+	HairColor string `json:"hair_color"`
+	HasDog    bool   `json:"has_dog"`
 }
 
-func multiplyByTwo(num int, c chan<- int) {
-	result := num * 2
-	c <- result
+func main() {
+	myJson := `[
+				{
+					"first_name": "Clark",
+					"last_name": "Kent",
+					"hair_color":"black",
+					"has_dog":true
+				},
+				{
+					"first_name": "Bruce",
+					"last_name": "Wayne",
+					"hair_color":"black",
+					"has_dog":false
+				}
+			   ]`
+	var unmarshalled []Person
+
+	err := json.Unmarshal([]byte(myJson), &unmarshalled)
+	if err != nil {
+		log.Println("Error unmarshalling json", err)
+	}
+	log.Printf("unmarshalled: %v", unmarshalled)
+
+	//write json from a struct
+	var mySlice []Person
+	var m1 Person
+	m1.FirstName = "Tony"
+	m1.LastName = "Stark"
+	m1.HairColor = "Black"
+	m1.HasDog = false
+	var m2 Person
+	m2.FirstName = "Bruce"
+	m2.LastName = "Banner"
+	m2.HairColor = "Black"
+	m2.HasDog = false
+
+	mySlice = append(mySlice, m1, m2)
+
+	data, err := json.MarshalIndent(mySlice, "", "     ")
+	if err != nil {
+		log.Fatalf("JSON marshaling failed: %s", err)
+	}
+	fmt.Printf("%s", data)
 }
