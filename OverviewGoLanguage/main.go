@@ -2,50 +2,52 @@ package main
 
 import "fmt"
 
-type Pokemons struct {
+type Animal interface {
+	Says() string
+	NumberOfLegs() int
+}
+
+type Dog struct {
 	Name  string
-	Power int
+	Breed string
+}
+
+type Gorilla struct {
+	Name          string
+	Color         string
+	NumberOfTeeth int
 }
 
 func main() {
-	animals := make(map[string]string)
-	animals["dog"] = "Cesur"
-	animals["cat"] = "Boncuk"
-
-	for animalType, animal := range animals {
-		fmt.Println(animalType, animal)
+	dog := Dog{
+		Name:  "Soldier",
+		Breed: "German Shephers",
 	}
-
-	var personnels []string
-
-	personnels = append(personnels, "Kemal", "Mehmet", "Aysel", "Elif")
-	for i, personnel := range personnels {
-		fmt.Println(i, personnel)
+	gorilla := Gorilla{
+		Name:          "Big Boi",
+		Color:         "Gray",
+		NumberOfTeeth: 28,
 	}
+	PrintInfo(&dog)
+	PrintInfo(&gorilla)
+}
 
-	var pokemon []Pokemons
+func PrintInfo(a Animal) {
+	fmt.Println("This animail says", a.Says(), "and has", a.NumberOfLegs())
+}
 
-	pokemon1 := Pokemons{
-		Name:  "Charmander",
-		Power: 38,
-	}
-	pokemon2 := Pokemons{
-		Name:  "Charizard",
-		Power: 98,
-	}
-	pokemon3 := Pokemons{
-		Name:  "Bulbasaur",
-		Power: 45,
-	}
-	pokemon4 := Pokemons{
-		Name:  "Ivysaur",
-		Power: 60,
-	}
+func (d *Dog) Says() string {
+	return "Woof"
+}
 
-	pokemon = append(pokemon, pokemon1, pokemon2, pokemon3, pokemon4)
+func (d *Dog) NumberOfLegs() int {
+	return 4
+}
 
-	for _, p := range pokemon {
-		fmt.Println(p.Name, " ", p.Power)
-	}
+func (d *Gorilla) Says() string {
+	return "Woooh"
+}
 
+func (d *Gorilla) NumberOfLegs() int {
+	return 2
 }
