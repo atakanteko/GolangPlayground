@@ -1,22 +1,19 @@
 package main
 
-import (
-	"fmt"
-	"github/atakanteko/golangplayground/helpers"
-)
-
-const numPool = 100
-
-func CalculateFunction(c chan int) {
-	randomNumber := helpers.RandomValue(numPool)
-	c <- randomNumber
-}
+import "fmt"
 
 func main() {
-	channelExample := make(chan int)
-	defer close(channelExample)
+	n := 3
 
-	go CalculateFunction(channelExample)
-	num := <-channelExample
-	fmt.Println(num)
+	out := make(chan int)
+	// We want to run a goroutine to multiply n by 2
+	go multiplyByTwo(n, out)
+	defer close(out)
+	result := <-out
+	fmt.Println("Result:", result)
+}
+
+func multiplyByTwo(num int, c chan<- int) {
+	result := num * 2
+	c <- result
 }
