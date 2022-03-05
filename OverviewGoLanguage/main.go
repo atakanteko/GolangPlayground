@@ -1,17 +1,23 @@
 package main
 
-import "fmt"
+import (
+	"log"
+	"time"
+)
 
-func main() {
-	name := "Steve"
-	fmt.Println("Name:", name)
-	fmt.Println("Memory address:", &name)
-	changeNameUsingPointer(&name)
-	fmt.Println("Name:", name)
+type User struct {
+	FirstName   string
+	LastName    string
+	PhoneNumber string
+	Age         int
+	BirthDate   time.Time
 }
 
-func changeNameUsingPointer(s *string) {
-	fmt.Println("Memory address:", s)
-	newValue := "James"
-	*s = newValue
+func main() {
+	user := User{
+		FirstName:   "Atakan",
+		LastName:    "Tekoğlu",
+		PhoneNumber: "0 5xx xxx xx xx",
+	}
+	log.Println(user)
 }
