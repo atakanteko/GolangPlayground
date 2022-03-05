@@ -9,12 +9,18 @@ type Personnel struct {
 }
 
 func main() {
-	myPersonnel := make(map[string]Personnel)
+	var personnels []Personnel
 	personnel1 := Personnel{
 		PersonnelID: "12345",
-		FirstName:   "Atakan",
-		LastName:    "Tekoğlu",
+		FirstName:   "Steve",
+		LastName:    "Bonac",
 	}
-	myPersonnel["personnel1"] = personnel1
-	log.Println(myPersonnel["personnel1"].PersonnelID)
+	personnel2 := Personnel{
+		PersonnelID: "98765",
+		FirstName:   "William",
+		LastName:    "Heath",
+	}
+	personnelList := append(personnels, personnel1, personnel2)
+	log.Println(personnelList)
+
 }
