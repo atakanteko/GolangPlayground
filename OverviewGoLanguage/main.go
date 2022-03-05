@@ -1,6 +1,6 @@
 package main
 
-import "fmt"
+import "log"
 
 type Personnel struct {
 	PersonnelID string
@@ -8,24 +8,13 @@ type Personnel struct {
 	LastName    string
 }
 
-type App []string
-
-func (personnel *Personnel) printPersonnelInformation() {
-	fmt.Println(personnel.PersonnelID, personnel.LastName, personnel.FirstName)
-}
-
-func (a App) print() {
-	for _, x := range a {
-		fmt.Println(x)
-	}
-}
-
 func main() {
-	var personnel Personnel
-	personnel.PersonnelID = "12345"
-	personnel.FirstName = "Steve"
-	personnel.LastName = "Diaz"
-	personnel.printPersonnelInformation()
-	apps := App{"Facebook", "Instagram", "WhatsApp"}
-	apps.print()
+	myPersonnel := make(map[string]Personnel)
+	personnel1 := Personnel{
+		PersonnelID: "12345",
+		FirstName:   "Atakan",
+		LastName:    "Tekoğlu",
+	}
+	myPersonnel["personnel1"] = personnel1
+	log.Println(myPersonnel["personnel1"].PersonnelID)
 }
