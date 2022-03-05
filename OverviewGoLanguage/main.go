@@ -1,32 +1,51 @@
 package main
 
-import "log"
+import "fmt"
 
-type Personnel struct {
-	PersonnelID string
-	FirstName   string
-	LastName    string
+type Pokemons struct {
+	Name  string
+	Power int
 }
 
 func main() {
-	var personnels []Personnel
-	personnel1 := Personnel{
-		PersonnelID: "12345",
-		FirstName:   "Steve",
-		LastName:    "Bonac",
-	}
-	personnel2 := Personnel{
-		PersonnelID: "98765",
-		FirstName:   "William",
-		LastName:    "Heath",
-	}
-	personnelList := append(personnels, personnel1, personnel2)
-	log.Println(personnelList)
-	var numbers []int
+	animals := make(map[string]string)
+	animals["dog"] = "Cesur"
+	animals["cat"] = "Boncuk"
 
-	numbers = append(numbers, 1, 2, 3, 4, 5, 6, 7, 8, 9)
-	log.Println(numbers)
+	for animalType, animal := range animals {
+		fmt.Println(animalType, animal)
+	}
 
-	otherNumbers := []int{1, 2, 3, 4, 5, 6, 7, 8, 9}
-	log.Println(otherNumbers)
+	var personnels []string
+
+	personnels = append(personnels, "Kemal", "Mehmet", "Aysel", "Elif")
+	for i, personnel := range personnels {
+		fmt.Println(i, personnel)
+	}
+
+	var pokemon []Pokemons
+
+	pokemon1 := Pokemons{
+		Name:  "Charmander",
+		Power: 38,
+	}
+	pokemon2 := Pokemons{
+		Name:  "Charizard",
+		Power: 98,
+	}
+	pokemon3 := Pokemons{
+		Name:  "Bulbasaur",
+		Power: 45,
+	}
+	pokemon4 := Pokemons{
+		Name:  "Ivysaur",
+		Power: 60,
+	}
+
+	pokemon = append(pokemon, pokemon1, pokemon2, pokemon3, pokemon4)
+
+	for _, p := range pokemon {
+		fmt.Println(p.Name, " ", p.Power)
+	}
+
 }
