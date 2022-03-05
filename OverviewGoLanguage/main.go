@@ -2,22 +2,21 @@ package main
 
 import (
 	"log"
-	"time"
 )
 
 type User struct {
-	FirstName   string
-	LastName    string
-	PhoneNumber string
-	Age         int
-	BirthDate   time.Time
+	FirstName string
 }
 
+func (i *User) printFirstName() string {
+	return i.FirstName
+}
 func main() {
+	var myUser User
+	myUser.FirstName = "Kemal"
 	user := User{
-		FirstName:   "Atakan",
-		LastName:    "Tekoğlu",
-		PhoneNumber: "0 5xx xxx xx xx",
+		FirstName: "Atakan",
 	}
-	log.Println(user)
+	log.Println(myUser.printFirstName())
+	log.Println(user.printFirstName())
 }
