@@ -5,18 +5,18 @@ import (
 	"github/atakanteko/golangplayground/helpers"
 )
 
-func main() {
-	var myVar []helpers.SomeType
+const numPool = 100
 
-	myVar = append(myVar, helpers.SomeType{
-		TypeName:   "Gamers",
-		TypeNumber: 1,
-	}, helpers.SomeType{
-		TypeName:   "Developers",
-		TypeNumber: 2,
-	})
-	fmt.Println(myVar)
-	for _, info := range myVar {
-		fmt.Println("Type Name:", info.TypeName, "Type Number:", info.TypeNumber)
-	}
+func CalculateFunction(c chan int) {
+	randomNumber := helpers.RandomValue(numPool)
+	c <- randomNumber
+}
+
+func main() {
+	channelExample := make(chan int)
+	defer close(channelExample)
+
+	go CalculateFunction(channelExample)
+	num := <-channelExample
+	fmt.Println(num)
 }
