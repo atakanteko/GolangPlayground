@@ -1,22 +1,31 @@
 package main
 
-import (
-	"log"
-)
+import "fmt"
 
-type User struct {
-	FirstName string
+type Personnel struct {
+	PersonnelID string
+	FirstName   string
+	LastName    string
 }
 
-func (i *User) printFirstName() string {
-	return i.FirstName
+type App []string
+
+func (personnel *Personnel) printPersonnelInformation() {
+	fmt.Println(personnel.PersonnelID, personnel.LastName, personnel.FirstName)
 }
-func main() {
-	var myUser User
-	myUser.FirstName = "Kemal"
-	user := User{
-		FirstName: "Atakan",
+
+func (a App) print() {
+	for _, x := range a {
+		fmt.Println(x)
 	}
-	log.Println(myUser.printFirstName())
-	log.Println(user.printFirstName())
+}
+
+func main() {
+	var personnel Personnel
+	personnel.PersonnelID = "12345"
+	personnel.FirstName = "Steve"
+	personnel.LastName = "Diaz"
+	personnel.printPersonnelInformation()
+	apps := App{"Facebook", "Instagram", "WhatsApp"}
+	apps.print()
 }
