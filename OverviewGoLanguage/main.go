@@ -6,54 +6,42 @@ import (
 	"log"
 )
 
-type Person struct {
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-	HairColor string `json:"hair_color"`
-	HasDog    bool   `json:"has_dog"`
+type Movie struct {
+	Title  string
+	Year   int  `json:"released"`
+	Color  bool `json:"color,omitempty"`
+	Actors []string
 }
 
 func main() {
-	myJson := `[
-				{
-					"first_name": "Clark",
-					"last_name": "Kent",
-					"hair_color":"black",
-					"has_dog":true
-				},
-				{
-					"first_name": "Bruce",
-					"last_name": "Wayne",
-					"hair_color":"black",
-					"has_dog":false
-				}
-			   ]`
-	var unmarshalled []Person
-
-	err := json.Unmarshal([]byte(myJson), &unmarshalled)
-	if err != nil {
-		log.Println("Error unmarshalling json", err)
+	var movies []Movie
+	movie1 := Movie{
+		Title:  "Saving Private Ryan",
+		Year:   1998,
+		Color:  true,
+		Actors: []string{"Tom Hanks", "Matt Damon", "Tom Sizemore", "Vin Diesel"},
 	}
-	log.Printf("unmarshalled: %v", unmarshalled)
-
-	//write json from a struct
-	var mySlice []Person
-	var m1 Person
-	m1.FirstName = "Tony"
-	m1.LastName = "Stark"
-	m1.HairColor = "Black"
-	m1.HasDog = false
-	var m2 Person
-	m2.FirstName = "Bruce"
-	m2.LastName = "Banner"
-	m2.HairColor = "Black"
-	m2.HasDog = false
-
-	mySlice = append(mySlice, m1, m2)
-
-	data, err := json.MarshalIndent(mySlice, "", "     ")
+	var actors []string
+	actors = append(actors, "Henry Fonda", "Martin Balsam", "Joseph Sweeney")
+	movie2 := Movie{
+		Title:  "12 Angry Men",
+		Year:   1957,
+		Color:  false,
+		Actors: actors,
+	}
+	movies = append(movies, movie1, movie2)
+	data, err := json.MarshalIndent(movies, "", "  ")
 	if err != nil {
-		log.Fatalf("JSON marshaling failed: %s", err)
+		log.Fatalf("JSON Marshalling failed: %s", err)
 	}
 	fmt.Printf("%s", data)
+
+	var titles []struct{ Title string }
+	err = json.Unmarshal([]byte(data), &titles)
+	if err != nil {
+		log.Println(err)
+	}
+	for _, title := range titles {
+		fmt.Println(title.Title)
+	}
 }
