@@ -1,47 +1,23 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
+	"github/atakanteko/golangplayground/github"
 	"log"
 )
 
-type Movie struct {
-	Title  string
-	Year   int  `json:"released"`
-	Color  bool `json:"color,omitempty"`
-	Actors []string
-}
-
 func main() {
-	var movies []Movie
-	movie1 := Movie{
-		Title:  "Saving Private Ryan",
-		Year:   1998,
-		Color:  true,
-		Actors: []string{"Tom Hanks", "Matt Damon", "Tom Sizemore", "Vin Diesel"},
-	}
-	var actors []string
-	actors = append(actors, "Henry Fonda", "Martin Balsam", "Joseph Sweeney")
-	movie2 := Movie{
-		Title:  "12 Angry Men",
-		Year:   1957,
-		Color:  false,
-		Actors: actors,
-	}
-	movies = append(movies, movie1, movie2)
-	data, err := json.MarshalIndent(movies, "", "  ")
-	if err != nil {
-		log.Fatalf("JSON Marshalling failed: %s", err)
-	}
-	fmt.Printf("%s", data)
+	var x int = 2
+	var pointerToX *int
+	pointerToX = &x
+	fmt.Println(*pointerToX)
+	*pointerToX = 5
+	fmt.Println(*pointerToX)
 
-	var titles []struct{ Title string }
-	err = json.Unmarshal([]byte(data), &titles)
+	result, err := github.SearchIssues()
 	if err != nil {
-		log.Println(err)
+		log.Fatal(err)
 	}
-	for _, title := range titles {
-		fmt.Println(title.Title)
-	}
+	fmt.Printf("Total Count: %d\n", result.TotalCount)
+	fmt.Println(result.IncompleteResult)
 }

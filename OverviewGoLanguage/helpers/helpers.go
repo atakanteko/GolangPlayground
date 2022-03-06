@@ -1,12 +1,27 @@
 package helpers
 
-import (
-	"math/rand"
-	"time"
-)
-
-func RandomValue(n int) int {
-	rand.Seed(time.Now().UnixNano())
-	value := rand.Intn(n)
-	return value
+type IssueResult struct {
+	TotalCount       int  `json:"total_count"`
+	IncompleteResult bool `json:"incomplete_result"`
+	//Items            []*Items
 }
+
+//type IssuesSearchResult struct {
+//	TotalCount int `json:"total_count"`
+//	Items      []*Items
+//}
+//
+//type Items struct {
+//	Number    int
+//	HTMLURL   string `json:"html_url"`
+//	Title     string
+//	State     string
+//	User      *User
+//	CreatedAt time.Time `json:"created_at"`
+//	Body      string    // in Markdown format
+//}
+//
+//type User struct {
+//	Login   string
+//	HTMLURL string `json:"html_url"`
+//}
